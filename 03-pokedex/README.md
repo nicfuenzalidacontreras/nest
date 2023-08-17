@@ -11,7 +11,11 @@
 ```npm i -g @nestjs/cli```
 4. Levantar la base de datos 
 ```docker-compose up -d```
-5. Reconstruir la base de datos
+5. Clonar el archivo
+```.env.example``` y renombrar la copia a ```.env```
+6. Ejecutar la aplicación en dev
+```yarn start:dev```
+7. Reconstruir la base de datos
 ```
 http:localhost:3000/api/seed
 ```
