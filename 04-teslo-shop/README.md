@@ -13,8 +13,11 @@
 ```docker-compose up -d```
 5. Clonar el archivo
 ```.env.example``` y renombrar la copia a ```.env```
-6. Ejecutar la aplicación en dev
-```yarn start:dev```
+6. Ejecutar SEED 
+```
+http://localhost:3000/api/seed
+```
+7. Levantar: ```yarn start:dev````
 
 ##Stack usado
 * Mongo DB
