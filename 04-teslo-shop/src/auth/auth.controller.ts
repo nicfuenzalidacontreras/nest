@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, SetM
 import { AuthService } from './auth.service';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser, RawHeaders, RoleProtected } from './decorators';
+import { GetUser, RawHeaders, RoleProtected, Auth } from './decorators';
 import { User } from './entities/user.entity';
 import { UserRoleGuard } from './guards/user-role.guard';
 import { validRoles } from './interfaces/valid-role.interface';
@@ -19,6 +19,14 @@ export class AuthController {
   @Post('login')
   loginUser(@Body() loginUserDto: LoginUserDto){
     return this.authService.login(loginUserDto);
+  }
+
+  @Get('check')
+  @Auth()
+  checkAuthStatus(
+    @GetUser() user:User
+  ) {
+    return this.authService.checkAuthStatus(user)
   }
 
   @Get('private')
@@ -39,6 +47,16 @@ export class AuthController {
   @RoleProtected(validRoles.admin)
   @UseGuards(AuthGuard(), UserRoleGuard)
   testinPriveRoute2(
+    @GetUser() user:User,
+  ) {
+    return {
+      user,
+    };
+  }
+
+  @Get('private3')
+  @Auth(validRoles.admin)
+  testinPriveRoute3(
     @GetUser() user:User,
   ) {
     return {
